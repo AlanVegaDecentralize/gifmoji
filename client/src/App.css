@@ -38,7 +38,8 @@
 }
 
 .gif {
-  height: 1000px;
-  width: 1000px;
+  top: 50px;
+  height: 300px;
+  width: 300px;
   left: 200px;
 }

@@ -19,3 +19,7 @@ export interface DragItem {
   top: number;
   left: number;
 }
+
+export interface gifTypes {
+  image?: File;
+}
