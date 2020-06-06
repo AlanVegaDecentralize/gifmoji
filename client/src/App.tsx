@@ -4,7 +4,9 @@ import ReactAudioPlayer from "react-audio-player";
 import Form from "react-bootstrap/Form";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker, Emoji } from "emoji-mart";
+import { Paper } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/index.css";
 import "./App.css";
 
 interface emoteBarProps {
@@ -66,13 +68,27 @@ function App() {
           custom
         />
       </Form>
-      <img id="gif" src="" height="200" width="300" alt="Image preview..." />
-      <ReactAudioPlayer id="audio" src="" controls />
+      <div className={"media-container"}>
+        <Paper variant="elevation" elevation={24}>
+          <img
+            id="gif"
+            src=""
+            height="200"
+            width="300"
+            alt="Image preview..."
+          />
+          <ReactAudioPlayer id="audio" src="" controls />
+        </Paper>
+      </div>
       <br />
-      <Picker set="apple" onClick={(emoji) => setEmotes([...emotes, emoji])} />
-      <EmojiBar emoteList={emotes} />
-      <div>
-        <Emoji set={"apple"} emoji={"shrug"} size={24} />
+      <div style={{ position: "relative" }}>
+        <EmojiBar emoteList={emotes} />
+      </div>
+      <div className={"emoji-picker"}>
+        <Picker
+          set="apple"
+          onClick={(emoji) => setEmotes([...emotes, emoji])}
+        />
       </div>
       <div>
         <table>
@@ -81,6 +97,7 @@ function App() {
               {emotes.map((value, index) => {
                 console.log(value);
                 let choosenEmote = value.id.toString();
+                // need to add conditional for creating a new table row when emoji count % 0
                 return (
                   <td key={index.toString()}>
                     <Emoji
