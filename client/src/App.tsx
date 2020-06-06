@@ -3,43 +3,40 @@ import { displayGif, audioUpload } from "./fileHandler/fileHandler";
 import ReactAudioPlayer from "react-audio-player";
 import Form from "react-bootstrap/Form";
 import "emoji-mart/css/emoji-mart.css";
-import { Picker, Emoji } from "emoji-mart";
+import { Picker, Emoji, BaseEmoji } from "emoji-mart";
 import { Paper } from "@material-ui/core";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
 import "./App.css";
 
 interface emoteBarProps {
-  emoteList: object[];
+  emoteList: BaseEmoji[];
 }
 
 function App() {
   const [emotes, setEmotes] = useState<any[]>([]);
 
-  // const addEmoji = (props: object[]) => {
-  //   props.map();
-  // };
-  let em = { id: "santa", skin: 3 };
-
   const EmojiBar = (props: emoteBarProps) => {
-    let emotelist = props.emoteList.map((value, index) => {
-      let choosenEmote = value.toString();
-      return (
-        <td key={index.toString()}>
-          <Emoji
-            key={index.toString()}
-            set={"apple"}
-            size={24}
-            emoji={choosenEmote}
-          />
-        </td>
-      );
-    });
     return (
       <div>
         <table>
           <tbody>
-            <tr>{emotelist}</tr>
+            <tr>
+              {props.emoteList.map((value: BaseEmoji, index) => {
+                console.log(value);
+                // need to add conditional for creating a new table row when emoji count % 0
+                return (
+                  <td key={index.toString()}>
+                    <Emoji
+                      key={index.toString()}
+                      set={"apple"}
+                      size={24}
+                      emoji={value}
+                    />
+                  </td>
+                );
+              })}
+            </tr>
           </tbody>
         </table>
       </div>
@@ -69,49 +66,26 @@ function App() {
         />
       </Form>
       <div className={"media-container"}>
-        <Paper variant="elevation" elevation={24}>
-          <img
-            id="gif"
-            src=""
-            height="200"
-            width="300"
-            alt="Image preview..."
-          />
-          <ReactAudioPlayer id="audio" src="" controls />
+        <Paper variant="elevation" elevation={12}>
+          <div className={"gif"}>
+            <img
+              id="gif"
+              src=""
+              height="200"
+              width="300"
+              alt="Image preview..."
+            />
+            <ReactAudioPlayer id="audio" src="" controls />
+            <EmojiBar emoteList={emotes} />
+          </div>
         </Paper>
       </div>
       <br />
-      <div style={{ position: "relative" }}>
-        <EmojiBar emoteList={emotes} />
-      </div>
       <div className={"emoji-picker"}>
         <Picker
           set="apple"
           onClick={(emoji) => setEmotes([...emotes, emoji])}
         />
-      </div>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              {emotes.map((value, index) => {
-                console.log(value);
-                let choosenEmote = value.id.toString();
-                // need to add conditional for creating a new table row when emoji count % 0
-                return (
-                  <td key={index.toString()}>
-                    <Emoji
-                      key={index.toString()}
-                      set={"apple"}
-                      size={24}
-                      emoji={choosenEmote}
-                    />
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   );

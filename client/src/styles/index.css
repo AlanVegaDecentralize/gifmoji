@@ -3,10 +3,25 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
+  height: 500px;
+  width: 300px;
+  /* vertical-align: middle; */
 }
 
 .emoji-picker {
   left: 1%;
   bottom: 1%;
   position: fixed;
+}
+
+.gif {
+  top: 20vh;
+  height: 300px;
+  width: 300px;
+  display: inline-block;
+}
+
+.audio-player {
+  display: inline-block;
 }
